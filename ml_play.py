@@ -83,11 +83,11 @@ def ml_loop():
                         predict_x=-predict_x
 
                 if predict_x-20 > platform_x:
-                    if (predict_x-20 -platform_x) >3:
-                        comm.send_instruction(scene_info.frame, PlatformAction.MOVE_RIGHT)
+                    #if (predict_x-20 -platform_x) >3:
+                    comm.send_instruction(scene_info.frame, PlatformAction.MOVE_RIGHT)
                 else:
-                    if (platform_x - (predict_x-20)) >3:
-                        comm.send_instruction(scene_info.frame, PlatformAction.MOVE_LEFT)
+                    #if (platform_x - (predict_x-20)) >3:
+                    comm.send_instruction(scene_info.frame, PlatformAction.MOVE_LEFT)
 
                 #y-y0=m(x-x0) (y-y0+m*x0)/m=x
         
