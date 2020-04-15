@@ -70,10 +70,15 @@ def ml_loop():
             platform_x = scene_info.platform[0]
 
             if delta_y<0: #ball is moving upward
-                if platform_x<ball_x:
+                if platform_x<80:
                     comm.send_instruction(scene_info.frame, PlatformAction.MOVE_RIGHT)
-                else:
+                elif platform_x>=80:
                     comm.send_instruction(scene_info.frame, PlatformAction.MOVE_LEFT)
+
+                #if platform_x<ball_x:
+                #    comm.send_instruction(scene_info.frame, PlatformAction.MOVE_RIGHT)
+                #else:
+                #    comm.send_instruction(scene_info.frame, PlatformAction.MOVE_LEFT)
             else: #ball is moving downward
                 predict_x=(400-ball_y+m*ball_x)/m
 
@@ -83,12 +88,12 @@ def ml_loop():
                     if predict_x<0:
                         predict_x=-predict_x
 
-                if predict_x-10 > platform_x:
-                    #if (predict_x-20 -platform_x) >3:
-                    comm.send_instruction(scene_info.frame, PlatformAction.MOVE_RIGHT)
+                if predict_x-20 > platform_x:
+                    if (predict_x-20 -platform_x) >5:
+                        comm.send_instruction(scene_info.frame, PlatformAction.MOVE_RIGHT)
                 else:
-                    #if (platform_x - (predict_x-20)) >3:
-                    comm.send_instruction(scene_info.frame, PlatformAction.MOVE_LEFT)
+                    if (platform_x - (predict_x-20)) >5:
+                        comm.send_instruction(scene_info.frame, PlatformAction.MOVE_LEFT)
 
                 #y-y0=m(x-x0) (y-y0+m*x0)/m=x
         
