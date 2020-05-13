@@ -22,11 +22,19 @@ def ml_loop(side: str):
     # === Here is the execution order of the loop === #
     # 1. Put the initialization code here
     ball_served = False
-    def move_to(player, pred) : #move platform to predicted position to catch ball 
+    def move_to(player, pred,f) : #move platform to predicted position to catch ball 
         if player == '1P':
-            if scene_info["platform_1P"][0]+20  > (pred-10) and scene_info["platform_1P"][0]+20 < (pred+10): return 0 # NONE
-            elif scene_info["platform_1P"][0]+20 <= (pred-10) : return 1 # goes right
-            else : return 2 # goes left
+            if (f<2):
+                if(scene_info["ball"][0]>0):
+                    return 1
+                elif (scene_info["ball"][0]<0):
+                    return 2
+                else:
+                    return 0
+            else:
+                if scene_info["platform_1P"][0]+20  > (pred-10) and scene_info["platform_1P"][0]+20 < (pred+10): return 0 # NONE
+                elif scene_info["platform_1P"][0]+20 <= (pred-10) : return 1 # goes right
+                else : return 2 # goes left
         else :
             if scene_info["platform_2P"][0]+20  > (pred-10) and scene_info["platform_2P"][0]+20 < (pred+10): return 0 # NONE
             elif scene_info["platform_2P"][0]+20 <= (pred-10) : return 1 # goes right
@@ -47,9 +55,9 @@ def ml_loop(side: str):
                     pred = abs(pred - (bound+1) *200)
                 else :
                     pred = pred + (abs(bound)*200)
-            return move_to(player = '1P',pred = pred)
+            return move_to(player = '1P',pred = pred,f=x)
         else : # 球正在向上 # ball goes up
-            return move_to(player = '1P',pred = 100)
+            return move_to(player = '1P',pred = 100,f=3)
 
 
 
